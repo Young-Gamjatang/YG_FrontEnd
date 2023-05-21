@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.geometry.LatLngBounds;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
@@ -102,6 +103,9 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
+
+
         Geocoder geocoder = new Geocoder(this);
         Marker marker = new Marker();
         marker.setPosition(new LatLng(cur_lat, cur_lon));
@@ -112,10 +116,10 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
 
         Log.d("a",""+cur_lat+"\n"+cur_lon);
-        CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(cur_lat,cur_lon),8
+        CameraPosition startposition = new CameraPosition(
+                new LatLng(cur_lat,cur_lon),12
         );
-        naverMap.setCameraPosition(cameraPosition);
+        naverMap.setCameraPosition(startposition);
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
@@ -136,7 +140,36 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         });
+        //지도 범위 제한
+        naverMap.setExtent(new LatLngBounds(new LatLng(31.43, 122.37), new LatLng(44.35, 132)));
+        //지도 줌 레벨 제한
+        naverMap.setMinZoom(5.0);
+        naverMap.setMaxZoom(18.0);
+//        naverMap.addOnCameraChangeListener(new NaverMap.OnCameraChangeListener() {
+//            @Override
+//            public void onCameraChange(int i, boolean b) {
+//                Log.d("navermap", "카메라 변경"+i+b);
+//            }
+//        });
+        naverMap.addOnCameraIdleListener(new NaverMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                CameraPosition cameraPosition = naverMap.getCameraPosition();
+                dymark.setMap(null);
+                dymark.setPosition(new LatLng(
+                        cameraPosition.target.latitude,
+                        cameraPosition.target.longitude));
+                dymark.setIcon(OverlayImage.fromResource(R.drawable.good_job));
+                dymark.setWidth(50);
+                dymark.setHeight(50);
+                dymark.setMap(naverMap);
+                double a = cameraPosition.zoom;
+                Log.d("test","zoom level is : "+a);
 
+                Log.d("navermap","끝끝끝끝끝끝");
+
+            }
+        });
         naverMap.setOnSymbolClickListener(symbol -> {
             if ("부산대학교 밀양캠퍼스".equals(symbol.getCaption())) {
                 Toast.makeText(this, "생자대 클릭", Toast.LENGTH_SHORT).show();
