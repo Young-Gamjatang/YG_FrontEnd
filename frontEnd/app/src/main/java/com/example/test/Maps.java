@@ -1,5 +1,6 @@
 package com.example.test;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -62,6 +63,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
         cur_lat = loc_current.getLatitude();
         cur_lon = loc_current.getLongitude();
+
 
 
 
