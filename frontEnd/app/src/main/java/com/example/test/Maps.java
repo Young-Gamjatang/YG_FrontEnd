@@ -168,7 +168,13 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
                 double a = cameraPosition.zoom;
                 Log.d("test","zoom level is : "+a);
 
-                Log.d("navermap","끝끝끝끝끝끝");
+                Log.d("navermap",cameraPosition.target.latitude + cameraPosition.target.longitude+"");
+                try {
+                    List<Address> citylist = geocoder.getFromLocation(cameraPosition.target.latitude,cameraPosition.target.longitude,10);
+                    Log.d("geoloder",citylist.get(0).toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
