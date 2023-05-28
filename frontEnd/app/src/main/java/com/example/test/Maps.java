@@ -20,6 +20,8 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.test.Retrofitmanager.QualityRestaurantModel;
+import com.example.test.Retrofitmanager.RetrofitInstance;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.LatLngBounds;
 import com.naver.maps.map.CameraPosition;
@@ -30,12 +32,20 @@ import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.Projection;
+import com.naver.maps.map.Symbol;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -43,6 +53,11 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
     public static double cur_lat;
     public static double cur_lon;
     public static Marker dymark;
+    public static Marker[] markers;
+    public static String lastlocation;
+    Call<List<QualityRestaurantModel>> call;
+    List<QualityRestaurantModel> result =new ArrayList<>();
+
 
 
     @Override
@@ -109,11 +124,16 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-
-
+        //startposition에 cur_lat , cur_lon
+        CameraPosition startposition = new CameraPosition(
+                new LatLng(37.498095,127.027610),15
+        );
+        CameraPosition cameraPosition = naverMap.getCameraPosition();
+        final int[] status = {0};
 
         Geocoder geocoder = new Geocoder(this);
         Marker marker = new Marker();
+
         marker.setPosition(new LatLng(cur_lat, cur_lon));
         marker.setIcon(OverlayImage.fromResource(R.drawable.good_job));
         marker.setWidth(50);
@@ -121,10 +141,70 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
         marker.setMap(naverMap);
 
 
+        List<Address> citylist = null;
+        try {
+            citylist = geocoder.getFromLocation(cameraPosition.target.latitude,cameraPosition.target.longitude,10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lastlocation = citylist.get(0).getSubLocality();
+        Log.d("yeye",""+citylist.get(0).getSubLocality());
+        call = RetrofitInstance.getApiService().getwrongcggcode("강남구");
+        call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+            @Override
+            public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
+                result = response.body();
+                for(int i = 0 ; i < result.size(); i++)
+                {
+
+
+                    Marker marker = new Marker();
+                    marker.setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                    marker.setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
+                    marker.setWidth(30);
+                    marker.setHeight(44);
+                    marker.setMap(naverMap);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+
+            }
+        });
+        call = RetrofitInstance.getApiService().getCggcode("강남구");
+        /**citylist.get(0).getSubLocality()**/
+        call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+            @Override
+            public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
+
+                result = response.body();
+                for(int i = 0 ; i < result.size(); i++)
+                {
+
+                    markers = new Marker[result.size()];
+                    markers[i] = new Marker();
+                    markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                    markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                    markers[i].setWidth(30);
+                    markers[i].setHeight(44);
+                    markers[i].setMap(naverMap);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+
+            }
+        });
+
+
+
+
         Log.d("a",""+cur_lat+"\n"+cur_lon);
-        CameraPosition startposition = new CameraPosition(
-                new LatLng(cur_lat,cur_lon),12
-        );
+
         naverMap.setCameraPosition(startposition);
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
@@ -147,9 +227,9 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         //지도 범위 제한
-        naverMap.setExtent(new LatLngBounds(new LatLng(31.43, 122.37), new LatLng(44.35, 132)));
+        naverMap.setExtent(new LatLngBounds(new LatLng(37.413294, 126.734086), new LatLng(37.715133, 127.269311)));
         //지도 줌 레벨 제한
-        naverMap.setMinZoom(5.0);
+        naverMap.setMinZoom(15.0);
         naverMap.setMaxZoom(18.0);
 //        naverMap.addOnCameraChangeListener(new NaverMap.OnCameraChangeListener() {
 //            @Override
@@ -160,7 +240,68 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
         naverMap.addOnCameraIdleListener(new NaverMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
+
                 CameraPosition cameraPosition = naverMap.getCameraPosition();
+                List<Address> citylist = null;
+                try {
+                    citylist = geocoder.getFromLocation(cameraPosition.target.latitude,cameraPosition.target.longitude,10);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d("여기에요여가",""+lastlocation + " 엥" + citylist.get(0).getSubLocality());
+
+                if(!Objects.equals(lastlocation, citylist.get(0).getSubLocality()))
+                {
+                    lastlocation = citylist.get(0).getSubLocality();
+                    call = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
+                    call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+                        @Override
+                        public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
+                            result = response.body();
+                            if(result != null) {
+                                for (int i = 0; i < result.size(); i++) {
+                                    markers = new Marker[result.size()];
+                                    markers[i] = new Marker();
+                                    markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                                    markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
+                                    markers[i].setWidth(30);
+                                    markers[i].setHeight(44);
+                                    markers[i].setMap(naverMap);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+
+                        }
+                    });
+                    call = RetrofitInstance.getApiService().getCggcode(citylist.get(0).getSubLocality());
+                    call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+                                     @Override
+                                     public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
+                                         result = response.body();
+                                         if(result != null) {
+                                             for (int i = status[0]; i < status[0] + result.size(); i++) {
+                                                 markers = new Marker[result.size()];
+                                                 markers[i] = new Marker();
+                                                 markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                                                 markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                                                 markers[i].setWidth(30);
+                                                 markers[i].setHeight(44);
+                                                 markers[i].setMap(naverMap);
+                                             }
+                                         }
+
+                                     }
+
+                                     @Override
+                                     public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+
+                                     }
+                                 });
+                }
+
                 dymark.setMap(null);
                 dymark.setPosition(new LatLng(
                         cameraPosition.target.latitude,
@@ -169,16 +310,6 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
                 dymark.setWidth(50);
                 dymark.setHeight(50);
                 dymark.setMap(naverMap);
-                double a = cameraPosition.zoom;
-                Log.d("test","zoom level is : "+a);
-
-                Log.d("navermap",cameraPosition.target.latitude + cameraPosition.target.longitude+"");
-                try {
-                    List<Address> citylist = geocoder.getFromLocation(cameraPosition.target.latitude,cameraPosition.target.longitude,10);
-                    Log.d("geoloder",citylist.get(0).toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
             }
         });
@@ -192,18 +323,18 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
             return false;
         });
         //카메라 이동 감지 및 위도 경도 측정
-        CameraPosition cameraPosition = naverMap.getCameraPosition();
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getRealSize(size);
-        int width = size.x;//현재 화면 크기(가로)
-        int height = size.y;//현재 화면 크기(세로)
-        Projection projection = naverMap.getProjection();
-        double metersPerPixel = projection.getMetersPerPixel(cameraPosition.target.latitude,cameraPosition.zoom);//현재 픽셀당 축적
-        Log.d("metersperpixel","metersPerPixel"+metersPerPixel+"\nwidth"+width+"\nheight"+(height-DPtoPX(this,330)));
-        naverMap.setContentPadding(0,DPtoPX(this,130),0,DPtoPX(this,200));
+
+        naverMap.setOnSymbolClickListener(new NaverMap.OnSymbolClickListener() {
+            @Override
+            public boolean onSymbolClick(@NonNull Symbol symbol) {
+                Log.d("asdf",""+symbol.getPosition().longitude);
+                return false;
+            }
+        });
+
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
+        naverMap.setContentPadding(0,DPtoPX(Maps.this,130),0,DPtoPX(Maps.this,200));
 
 
 
