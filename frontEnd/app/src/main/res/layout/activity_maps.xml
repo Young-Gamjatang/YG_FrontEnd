@@ -155,7 +155,7 @@
                             android:id="@+id/textView2"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:background="@drawable/icon_search"
+                            android:background="@drawable/yellow_search_icon"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.05"
@@ -178,7 +178,7 @@
                             android:id="@+id/textView3"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/icon_home"
+                            android:background="@drawable/yellow_home_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -207,7 +207,7 @@
                             android:id="@+id/textView4"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/icon_heart"
+                            android:background="@drawable/hart_home_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"></TextView>

@@ -25,6 +25,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="38dp"/>
@@ -50,6 +51,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -62,12 +64,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="마포구"
+                android:text="서대문구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -92,6 +96,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -104,11 +109,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서대문구"
+                android:text="서초구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
-                android:layout_marginRight="19dp"
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -134,6 +139,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -146,10 +152,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서초구"
+                android:text="성동구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -175,6 +182,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -187,10 +195,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="성동구"
+                android:text="성북구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -216,6 +225,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
                 android:layout_width="wrap_content"
@@ -233,6 +243,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -258,6 +269,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
                 android:layout_width="wrap_content"
@@ -275,6 +287,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -300,8 +313,8 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -317,9 +330,10 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
+                android:layout_marginRight="19dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="19dp"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -343,6 +357,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
                 android:layout_width="wrap_content"
@@ -360,8 +375,10 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 />
         </LinearLayout>
     </LinearLayout>
@@ -374,9 +391,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_weight="1">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -385,8 +400,8 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -402,6 +417,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -416,19 +432,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_weight="1">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="도봉구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -441,9 +454,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="종로구"
-                android:textColor="@color/black"
+               android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -458,9 +472,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_weight="1">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -469,6 +481,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -479,12 +492,14 @@
 
             <TextView
                 android:layout_marginLeft="19dp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="중구"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -511,6 +526,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
                 android:layout_width="wrap_content"
@@ -528,10 +544,44 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <CheckBox
+                android:buttonTint="#FCD46A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마포구"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:buttonTint="#FCD46A"
+                android:layout_marginLeft="19dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
 
@@ -543,7 +593,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="30dp"
         android:layout_gravity="bottom">

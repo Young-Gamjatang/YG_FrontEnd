@@ -25,6 +25,7 @@
             android:layout_weight="1" />
 
         <CheckBox
+            android:buttonTint="#FCD46A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -48,6 +49,7 @@
             android:layout_weight="1" />
 
         <CheckBox
+            android:buttonTint="#FCD46A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -71,6 +73,7 @@
             android:layout_weight="1" />
 
         <CheckBox
+            android:buttonTint="#FCD46A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -93,6 +96,7 @@
             android:layout_weight="1" />
 
         <CheckBox
+            android:buttonTint="#FCD46A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -115,6 +119,7 @@
             android:layout_weight="1" />
 
         <CheckBox
+            android:buttonTint="#FCD46A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

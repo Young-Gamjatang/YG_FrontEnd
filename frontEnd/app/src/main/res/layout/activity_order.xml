@@ -31,13 +31,11 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="30sp"
-                android:background="#939090"
-                android:text="로고자리" />
+                android:background="@drawable/logo_icon"
+                android:layout_marginStart="50dp"/>
 
             <View
                 android:layout_width="0dp"
