@@ -11,6 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class FoodAdapter extends FragmentStateAdapter {
     public FoodAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
+
     }
 
     @NonNull
@@ -34,5 +35,6 @@ public class FoodAdapter extends FragmentStateAdapter {
     }
 
     public void setAdapter(FoodAdapter foodAdapter) {
+
     }
 }

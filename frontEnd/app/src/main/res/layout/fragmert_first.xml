@@ -5,6 +5,7 @@
     android:orientation="vertical"
     tools:context=".FirstFragment">
     <LinearLayout
+        android:id="@+id/fortest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
@@ -22,6 +23,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
         <CheckBox
+            android:id="@+id/cb_all_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 

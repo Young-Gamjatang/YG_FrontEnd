@@ -2,7 +2,9 @@ package com.example.test;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,14 +51,18 @@ public class Order extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
+
                 TextView textView = new TextView(Order.this);
                 textView.setText(tabElement.get(position));
                 tab.setCustomView(textView);
 
 
+
             }
         }).attach();
         //========================================================================
+
     }
     
 }
