@@ -23,16 +23,16 @@ public class QualityRestaurantModel {
     private String sntCobNm;
 
     //업소명
-    @SerializedName("upsoNm")
-    private String upsoNm;
+    @SerializedName("upsoName")
+    private String upsoName;
 
     //업태명
     @SerializedName("sntUptaeNm")
     private String sntUptaeNm;
 
     //소재지도로명
-    @SerializedName("siteAddrRd")
-    private String siteAddrRd;
+    @SerializedName("siteAddress")
+    private String siteAddress;
 
     //지상_부터
     @SerializedName("bdngJisgFlrNum")
@@ -45,6 +45,8 @@ public class QualityRestaurantModel {
     //모범음식점여부
     @SerializedName("geEnYn")
     private String geEnYn;
+
+    @SerializedName("asgnYear") private String asgnYear;
 
     public Double getLatitude() {
         return latitude;
@@ -83,11 +85,11 @@ public class QualityRestaurantModel {
     }
 
     public String getUpsoNm() {
-        return upsoNm;
+        return upsoName;
     }
 
-    public void setUpsoNm(String upsoNm) {
-        this.upsoNm = upsoNm;
+    public void setUpsoNm(String upsoName) {
+        this.upsoName = upsoName;
     }
 
     public String getSntUptaeNm() {
@@ -99,11 +101,11 @@ public class QualityRestaurantModel {
     }
 
     public String getSiteAddrRd() {
-        return siteAddrRd;
+        return siteAddress;
     }
 
-    public void setSiteAddrRd(String siteAddrRd) {
-        this.siteAddrRd = siteAddrRd;
+    public void setSiteAddrRd(String siteAddress) {
+        this.siteAddress = siteAddress;
     }
 
     public String getBdngJisgFlrNum() {
@@ -130,6 +132,14 @@ public class QualityRestaurantModel {
         this.geEnYn = geEnYn;
     }
 
+    public String getAsgnYear() {
+        return asgnYear;
+    }
+
+    public void setAsgnYear(String asgnYear) {
+        this.asgnYear = asgnYear;
+    }
+
     @Override
     public String toString() {
         return "ResModel{" +
@@ -138,12 +148,13 @@ public class QualityRestaurantModel {
                 ", upsoSno='" + upsoSno + '\'' +
                 ", cggCode='" + cggCode + '\'' +
                 ", sntCobNm='" + sntCobNm + '\'' +
-                ", upsoNm='" + upsoNm + '\'' +
+                ", upsoNm='" + upsoName + '\'' +
                 ", sntUptaeNm='" + sntUptaeNm + '\'' +
-                ", siteAddrRd='" + siteAddrRd + '\'' +
+                ", siteAddrRd='" + siteAddress + '\'' +
                 ", bdngJisgFlrNum='" + bdngJisgFlrNum + '\'' +
                 ", bdngUnderFlrNum='" + bdngUnderFlrNum + '\'' +
                 ", geEnYn='" + geEnYn + '\'' +
+                ", asgnYear='" + asgnYear + '\'' +
                 '}';
     }
 }
