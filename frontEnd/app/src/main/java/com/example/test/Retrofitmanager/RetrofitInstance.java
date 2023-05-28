@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     //추후에 넣을 예정
-    private static final String BASE_URL = "https://9cea-1-220-178-43.ngrok-free.app/dynamo/query/";
+    private static final String BASE_URL = "https://df81-36-38-156-197.ngrok-free.app/dynamo/query/";
 
     public static RetrofitService getApiService() {
 

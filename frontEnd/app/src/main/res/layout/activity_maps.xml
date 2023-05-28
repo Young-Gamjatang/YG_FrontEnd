@@ -19,15 +19,36 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:background="@drawable/round_upside_edge"
+
             app:layout_constraintBottom_toBottomOf="@+id/map"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="-32dp"
+                    tools:layout_editor_absoluteY="-16dp">
+
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/mark_mobum"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.05"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
 
                     android:id="@+id/marker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
