@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,6 +16,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.Projection;
+import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 
@@ -187,8 +191,26 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback {
             // 이벤트 전파, OnMapClick 이벤트가 발생함
             return false;
         });
+        //카메라 이동 감지 및 위도 경도 측정
+        CameraPosition cameraPosition = naverMap.getCameraPosition();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getRealSize(size);
+        int width = size.x;//현재 화면 크기(가로)
+        int height = size.y;//현재 화면 크기(세로)
+        Projection projection = naverMap.getProjection();
+        double metersPerPixel = projection.getMetersPerPixel(cameraPosition.target.latitude,cameraPosition.zoom);//현재 픽셀당 축적
+        Log.d("metersperpixel","metersPerPixel"+metersPerPixel+"\nwidth"+width+"\nheight"+(height-DPtoPX(this,330)));
+        naverMap.setContentPadding(0,DPtoPX(this,130),0,DPtoPX(this,200));
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setLocationButtonEnabled(true);
 
 
 
+
+    }
+    public static int DPtoPX(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 }
