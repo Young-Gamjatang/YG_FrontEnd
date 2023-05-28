@@ -9,8 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface  RetrofitService {
-    @GET("cggcode")
-    Call<List<QualityRestaurantModel>> getQualityRestaurantModel(@Query("guName") String guName);
+
     @GET("cggcode")
     Call<List<QualityRestaurantModel>> getCggcode(@Query("guName") String guName);
 
