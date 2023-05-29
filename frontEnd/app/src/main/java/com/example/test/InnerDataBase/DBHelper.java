@@ -35,34 +35,30 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Person Table 조회
-    public String getResult(int index, String upsoName) {
-        // 읽기가 가능하게 DB 열기
-        SQLiteDatabase db = getReadableDatabase();
-        String result = null;
-
-        Cursor cursor = getWordMatches(upsoName, db);
-
-        result += cursor.getDouble(0)
-                + "," + cursor.getDouble(1)
-                + "," + cursor.getString(2)
-                + "," + cursor.getString(3)
-                + "," + cursor.getString(4)
-                + "," + cursor.getString(5)
-                + "/n";
-
-        return result;
+    // Person Table 데이터 삭제
+    public void delete(String upsoName) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE Quality_Restaurant WHERE NAME = '" + upsoName + "'");
+        db.close();
     }
 
-//        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
-//        Cursor cursor = db.rawQuery("SELECT * FROM Quality_Restaurant", null);
-////        while (cursor.moveToNext()) {
+    public String getResult(String upsoName) {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
 
-    public Cursor getWordMatches(String upsoName, SQLiteDatabase db) {
-        String[] projection = {"UpsoName"};
-        String selection = "UpsoName = ?";
-        String[] selectionArgs = {"upsoName"};
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Quality_Restaurant WHERE UpsoName = '" + upsoName + "'", null);
+        while (cursor.moveToNext()) {
+            result += cursor.getDouble(0)
+                    + "," + cursor.getDouble(1)
+                    + "," + cursor.getString(2)
+                    + "," + cursor.getString(3)
+                    + "," + cursor.getString(4)
+                    + "," + cursor.getString(5)
+                    + "/n";
+        }
 
-        return db.query("Quality_Restaurant",projection, selection, selectionArgs, null, null, null);
+        return result;
     }
 }
