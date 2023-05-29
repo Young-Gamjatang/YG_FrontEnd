@@ -169,7 +169,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         }
         lastlocation = citylist.get(0).getSubLocality();
         Log.d("yeye",""+citylist.get(0).getSubLocality());
-        call = RetrofitInstance.getApiService().getwrongcggcode("강남구");
+        call = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
             public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
@@ -195,7 +195,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
 
             }
         });
-        call = RetrofitInstance.getApiService().getCggcode("강남구");
+        call = RetrofitInstance.getApiService().getCggcode(citylist.get(0).getSubLocality());
         /**citylist.get(0).getSubLocality()**/
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
@@ -236,12 +236,12 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
             @Override
             public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
 
-                    if(marker_detail.getVisibility()==View.GONE)
-                    {
-                        marker_detail.setVisibility(View.VISIBLE);
-                        upso_detail.setVisibility(View.GONE);
-
-                    }
+//                    if(marker_detail.getVisibility()==View.GONE)
+//                    {
+//                        marker_detail.setVisibility(View.VISIBLE);
+//                        upso_detail.setVisibility(View.GONE);
+//
+//                    }
                 }
         });
         //지도 범위 제한

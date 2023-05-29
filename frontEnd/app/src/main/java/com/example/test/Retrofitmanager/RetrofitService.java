@@ -24,6 +24,11 @@ public interface  RetrofitService {
     @GET("search/restaurant")
     Call<List<QualityRestaurantModel>> searchres(@Query("upsoName") String upsoName);
 
+    @GET("near")
+    Call<List<QualityRestaurantModel>> nearres(@Query("guName")String guname,
+                                               @Query("latitude")double lat,
+                                               @Query("longitude")double lon);
+
 
     @GET("url")
     Call<List<BadHygieneRestaurantModel>> getBadHygieneRestaurantModel(@Query("guName") String guName);

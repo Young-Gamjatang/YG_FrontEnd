@@ -56,6 +56,8 @@ public class QualityRestaurantModel {
 
     @SerializedName("asgnYear") private String asgnYear;
 
+    @SerializedName("url") private String  url;
+
     public Double getLatitude() {
         return latitude;
     }
@@ -156,6 +158,14 @@ public class QualityRestaurantModel {
 
     public void setMainfood(String mainfood) { this.mainfood = mainfood; }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "ResModel{" +
@@ -173,6 +183,7 @@ public class QualityRestaurantModel {
                 ", geEnYn='" + geEnYn + '\'' +
                 ", asgnYear='" + asgnYear + '\'' +
                 ", mainfood='" + mainfood + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }
