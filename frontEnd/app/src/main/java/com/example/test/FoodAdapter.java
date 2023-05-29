@@ -19,10 +19,8 @@ public class FoodAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new FirstFragment();
-            case 1:
                 return new SecondFragment();
-            case 2:
+            case 1:
                 return new ThirdFragment();
             default:
                 return null;
@@ -31,7 +29,7 @@ public class FoodAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;       // 페이지 수
+        return 2;       // 페이지 수
     }
 
     public void setAdapter(FoodAdapter foodAdapter) {

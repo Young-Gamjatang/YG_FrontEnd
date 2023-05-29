@@ -47,7 +47,7 @@ public class Order extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        final List<String> tabElement = Arrays.asList("카테고리","지역","적발기간");
+        final List<String> tabElement = Arrays.asList("지역","적발기간");
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
