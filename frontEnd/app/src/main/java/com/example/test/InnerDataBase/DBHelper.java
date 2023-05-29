@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
+import com.example.test.Dibs;
+
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -42,7 +44,26 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String getResult(String upsoName) {
+    public ArrayList<String> getSplitResult() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<String> result = new ArrayList<>();
+
+       Cursor cursor = db.rawQuery("SELECT * FROM Quality_Restaurant", null);
+        while (cursor.moveToNext()) {
+            result.add(cursor.getDouble(0)
+                    + "," + cursor.getDouble(1)
+                    + "," + cursor.getString(2)
+                    + "," + cursor.getString(3)
+                    + "," + cursor.getString(4)
+                    + "," + cursor.getString(5)
+                    + "/n");
+        }
+
+        return result;
+    }
+
+    public String getSearchResult(String upsoName) {
         // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
