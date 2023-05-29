@@ -30,6 +30,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.17" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="메뉴 아이콘"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:layout_editor_absoluteX="34dp"
+                    tools:layout_editor_absoluteY="44dp"></TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -43,9 +53,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/upso_deatil"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     tools:layout_editor_absoluteX="-32dp"
                     tools:layout_editor_absoluteY="-16dp">
 
@@ -66,15 +77,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="서북면옥"
+                            android:textColor="#80000000"
                             app:layout_constraintBottom_toBottomOf="@+id/textView6"
                             app:layout_constraintStart_toEndOf="@+id/textView6"
                             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
                         <TextView
+                            android:id="@+id/text_mainfood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="메인 음식"
+                            android:textColor="#80000000"
+                            app:layout_constraintHorizontal_bias="0.1"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                            app:layout_constraintEnd_toStartOf="@+id/detail_btn"
+                            app:layout_constraintStart_toEndOf="@+id/text_title"
+                            app:layout_constraintTop_toTopOf="@+id/text_title" />
+                        <TextView
                             android:id="@+id/text_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="어디어디 서울 어디 무슨 구"
+                            android:textColor="#80000000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.15"
@@ -87,6 +111,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="모범식당"
+                            android:textColor="#80000000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/text_address"
                             app:layout_constraintTop_toBottomOf="@+id/text_address"
@@ -109,10 +134,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
 
-                    android:id="@+id/marker"
+                    android:id="@+id/marker_deatil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -212,17 +237,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="메뉴 아이콘"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"

@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -39,6 +40,8 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public static String lastlocation;
     Call<List<QualityRestaurantModel>> call;
     List<QualityRestaurantModel> result =new ArrayList<>();
+
 
 
 
@@ -127,6 +131,10 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
+
+        ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
+        ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
         //startposition에 cur_lat , cur_lon
         CameraPosition startposition = new CameraPosition(
                 new LatLng(37.498095,127.027610),15
@@ -203,8 +211,8 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                     goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
                     goodmarkers[i].setWidth(45);
                     goodmarkers[i].setHeight(66);
-                    goodmarkers[i].setTag("good");
-                    goodmarkers[i].setCaptionText(result.get(i).getUpsoNm());
+                    goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
+                    goodmarkers[i].setCaptionText(result.get(i).getUpsoName());
                     goodmarkers[i].setCaptionTextSize(0);
                     goodmarkers[i].setOnClickListener(Maps.this);
                     goodmarkers[i].setMap(naverMap);
@@ -227,22 +235,14 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
-                Log.d("b",""+pointF + latLng.latitude+latLng.longitude);
-                try {
-                    List<Address> citylist = geocoder.getFromLocation(latLng.latitude,latLng.longitude,10);
-                    dymark.setMap(null);
-                    dymark.setPosition(new LatLng(latLng.latitude, latLng.longitude));
-                    dymark.setIcon(OverlayImage.fromResource(R.drawable.good_job));
-                    dymark.setWidth(50);
-                    dymark.setHeight(50);
-                    dymark.setMap(naverMap);
 
-                    Log.d("tag",citylist.get(0).toString());
+                    if(marker_detail.getVisibility()==View.GONE)
+                    {
+                        marker_detail.setVisibility(View.VISIBLE);
+                        upso_detail.setVisibility(View.GONE);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    }
                 }
-            }
         });
         //지도 범위 제한
         naverMap.setExtent(new LatLngBounds(new LatLng(37.413294, 126.734086), new LatLng(37.715133, 127.269311)));
@@ -310,8 +310,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                                                  goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
                                                  goodmarkers[i].setWidth(45);
                                                  goodmarkers[i].setHeight(66);
-                                                 goodmarkers[i].setTag("good");
-                                                 goodmarkers[i].setCaptionText(result.get(i).getUpsoNm());
+                                                 goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
                                                  goodmarkers[i].setCaptionTextSize(0);
                                                  goodmarkers[i].setOnClickListener(Maps.this);
                                                  goodmarkers[i].setMap(naverMap);
@@ -372,11 +371,49 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker)
         {
-            if(overlay.getTag().equals("warning")) {//마커 클릭 처리
+
+            ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
+            ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
+            if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_mobum)))
+            {
+
+                TextView text_title = findViewById(R.id.text_title);
+                TextView text_address = findViewById(R.id.text_address);
+                TextView text_category = findViewById(R.id.text_category);
+                TextView text_mainfood = findViewById(R.id.text_mainfood);
+
+                marker_detail.setVisibility(View.GONE);
+                upso_detail.setVisibility(View.VISIBLE);
+                text_title.setText("");
+                text_mainfood.setText("");
+                text_address.setText("");
+
+                String temp = overlay.getTag().toString();
+                String[] detail = temp.split("/");
+                if(!detail[0].equals("null"))
+                {
+                    text_title.setText(detail[0]);
+                }
+                if(!detail[1].equals("null"))
+                {
+                    text_mainfood.setText(detail[1]);
+                }
+                if(!detail[2].equals("null"))
+                {
+                    text_address.setText(detail[2]);
+                }
+
+                Log.d("aaaaaaa",""+detail[0]+"{{"+detail[1]+"{{"+detail[2]);
 
 
-                Log.d("aaaaaaa",((Marker) overlay).getCaptionText());}
-            if(overlay.getTag().equals("good")){
+
+                text_category.setText("모범업소");
+
+
+            }
+            if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_warning)))
+            {
+
                 Log.d("bbbbbb",((Marker) overlay).getCaptionText());
             }
         }
