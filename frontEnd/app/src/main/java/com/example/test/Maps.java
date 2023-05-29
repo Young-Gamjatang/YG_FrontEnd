@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.test.Retrofitmanager.QualityRestaurantModel;
@@ -38,6 +40,8 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +58,12 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public static double cur_lat;
     public static double cur_lon;
     public static Marker dymark;
-    public static Marker[] markers;
+    public static Marker[] goodmarkers;
+    public static Marker[] badmarkers;
     public static String lastlocation;
     Call<List<QualityRestaurantModel>> call;
     List<QualityRestaurantModel> result =new ArrayList<>();
+
 
 
 
@@ -125,6 +131,10 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
+
+        ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
+        ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
         //startposition에 cur_lat , cur_lon
         CameraPosition startposition = new CameraPosition(
                 new LatLng(37.498095,127.027610),15
@@ -141,6 +151,15 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         marker.setHeight(50);
         marker.setMap(naverMap);
 
+        //현재 위치로 버튼
+        TextView mylocationbtn = findViewById(R.id.mylocationbtn);
+        mylocationbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                naverMap.setCameraPosition(startposition);
+            }
+        });
+
 
         List<Address> citylist = null;
         try {
@@ -150,7 +169,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         }
         lastlocation = citylist.get(0).getSubLocality();
         Log.d("yeye",""+citylist.get(0).getSubLocality());
-        call = RetrofitInstance.getApiService().getwrongcggcode("강남구");
+        call = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
             public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
@@ -163,6 +182,8 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                     marker.setWidth(45);
                     marker.setHeight(66);
                     marker.setTag("warning");
+                    marker.setCaptionText(result.get(i).getUpsoNm());
+                    marker.setCaptionTextSize(0);
                     marker.setOnClickListener(Maps.this);
                     marker.setMap(naverMap);
                 }
@@ -174,7 +195,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
 
             }
         });
-        call = RetrofitInstance.getApiService().getCggcode("강남구");
+        call = RetrofitInstance.getApiService().getCggcode(citylist.get(0).getSubLocality());
         /**citylist.get(0).getSubLocality()**/
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
@@ -184,15 +205,17 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                 for(int i = 0 ; i < result.size(); i++)
                 {
 
-                    markers = new Marker[result.size()];
-                    markers[i] = new Marker();
-                    markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                    markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
-                    markers[i].setWidth(45);
-                    markers[i].setHeight(66);
-                    markers[i].setTag("good");
-                    markers[i].setOnClickListener(Maps.this);
-                    markers[i].setMap(naverMap);
+                    goodmarkers = new Marker[result.size()];
+                    goodmarkers[i] = new Marker();
+                    goodmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                    goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                    goodmarkers[i].setWidth(45);
+                    goodmarkers[i].setHeight(66);
+                    goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
+                    goodmarkers[i].setCaptionText(result.get(i).getUpsoName());
+                    goodmarkers[i].setCaptionTextSize(0);
+                    goodmarkers[i].setOnClickListener(Maps.this);
+                    goodmarkers[i].setMap(naverMap);
                 }
 
             }
@@ -212,22 +235,14 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         naverMap.setOnMapClickListener(new NaverMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull PointF pointF, @NonNull LatLng latLng) {
-                Log.d("b",""+pointF + latLng.latitude+latLng.longitude);
-                try {
-                    List<Address> citylist = geocoder.getFromLocation(latLng.latitude,latLng.longitude,10);
-                    dymark.setMap(null);
-                    dymark.setPosition(new LatLng(latLng.latitude, latLng.longitude));
-                    dymark.setIcon(OverlayImage.fromResource(R.drawable.good_job));
-                    dymark.setWidth(50);
-                    dymark.setHeight(50);
-                    dymark.setMap(naverMap);
 
-                    Log.d("tag",citylist.get(0).toString());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+//                    if(marker_detail.getVisibility()==View.GONE)
+//                    {
+//                        marker_detail.setVisibility(View.VISIBLE);
+//                        upso_detail.setVisibility(View.GONE);
+//
+//                    }
                 }
-            }
         });
         //지도 범위 제한
         naverMap.setExtent(new LatLngBounds(new LatLng(37.413294, 126.734086), new LatLng(37.715133, 127.269311)));
@@ -262,15 +277,17 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                             result = response.body();
                             if(result != null) {
                                 for (int i = 0; i < result.size(); i++) {
-                                    markers = new Marker[result.size()];
-                                    markers[i] = new Marker();
-                                    markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                                    markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
-                                    markers[i].setWidth(45);
-                                    markers[i].setHeight(66);
-                                    markers[i].setTag("warning");
-                                    markers[i].setOnClickListener(Maps.this);
-                                    markers[i].setMap(naverMap);
+                                    badmarkers = new Marker[result.size()];
+                                    badmarkers[i] = new Marker();
+                                    badmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                                    badmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
+                                    badmarkers[i].setWidth(45);
+                                    badmarkers[i].setHeight(66);
+                                    badmarkers[i].setCaptionText(result.get(i).getUpsoNm());
+                                    badmarkers[i].setCaptionTextSize(0);
+                                    badmarkers[i].setTag("warning");
+                                    badmarkers[i].setOnClickListener(Maps.this);
+                                    badmarkers[i].setMap(naverMap);
                                 }
                             }
                         }
@@ -287,15 +304,16 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                                          result = response.body();
                                          if(result != null) {
                                              for (int i = status[0]; i < status[0] + result.size(); i++) {
-                                                 markers = new Marker[result.size()];
-                                                 markers[i] = new Marker();
-                                                 markers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                                                 markers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
-                                                 markers[i].setWidth(45);
-                                                 markers[i].setHeight(66);
-                                                 markers[i].setTag("good");
-                                                 markers[i].setOnClickListener(Maps.this);
-                                                 markers[i].setMap(naverMap);
+                                                 goodmarkers = new Marker[result.size()];
+                                                 goodmarkers[i] = new Marker();
+                                                 goodmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                                                 goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                                                 goodmarkers[i].setWidth(45);
+                                                 goodmarkers[i].setHeight(66);
+                                                 goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
+                                                 goodmarkers[i].setCaptionTextSize(0);
+                                                 goodmarkers[i].setOnClickListener(Maps.this);
+                                                 goodmarkers[i].setMap(naverMap);
                                              }
                                          }
 
@@ -338,8 +356,6 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
             }
         });
 
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setLocationButtonEnabled(true);
         naverMap.setContentPadding(0,DPtoPX(Maps.this,130),0,DPtoPX(Maps.this,200));
 
 
@@ -355,10 +371,50 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker)
         {
-            if(overlay.getTag().equals("warning")) {//마커 클릭 처리
-                Log.d("aaaaaaa","2222222");}
-            if(overlay.getTag().equals("good")){
-                Log.d("bbbbbb","111111");
+
+            ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
+            ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
+            if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_mobum)))
+            {
+
+                TextView text_title = findViewById(R.id.text_title);
+                TextView text_address = findViewById(R.id.text_address);
+                TextView text_category = findViewById(R.id.text_category);
+                TextView text_mainfood = findViewById(R.id.text_mainfood);
+
+                marker_detail.setVisibility(View.GONE);
+                upso_detail.setVisibility(View.VISIBLE);
+                text_title.setText("");
+                text_mainfood.setText("");
+                text_address.setText("");
+
+                String temp = overlay.getTag().toString();
+                String[] detail = temp.split("/");
+                if(!detail[0].equals("null"))
+                {
+                    text_title.setText(detail[0]);
+                }
+                if(!detail[1].equals("null"))
+                {
+                    text_mainfood.setText(detail[1]);
+                }
+                if(!detail[2].equals("null"))
+                {
+                    text_address.setText(detail[2]);
+                }
+
+                Log.d("aaaaaaa",""+detail[0]+"{{"+detail[1]+"{{"+detail[2]);
+
+
+
+                text_category.setText("모범업소");
+
+
+            }
+            if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_warning)))
+            {
+
+                Log.d("bbbbbb",((Marker) overlay).getCaptionText());
             }
         }
         return false;

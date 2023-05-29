@@ -22,13 +22,21 @@ public class QualityRestaurantModel {
     @SerializedName("sntCobNm")
     private String sntCobNm;
 
-    //업소명
+    //위생업소명
+    @SerializedName("upsoNm")
+    private String upsoNm;
+
+    //모범업소명
     @SerializedName("upsoName")
     private String upsoName;
 
     //업태명
     @SerializedName("sntUptaeNm")
     private String sntUptaeNm;
+
+    //주메뉴
+    @SerializedName("mainFood")
+    private String mainfood;
 
     //소재지도로명
     @SerializedName("siteAddress")
@@ -47,6 +55,8 @@ public class QualityRestaurantModel {
     private String geEnYn;
 
     @SerializedName("asgnYear") private String asgnYear;
+
+    @SerializedName("url") private String  url;
 
     public Double getLatitude() {
         return latitude;
@@ -85,11 +95,15 @@ public class QualityRestaurantModel {
     }
 
     public String getUpsoNm() {
-        return upsoName;
+        return upsoNm;
     }
 
-    public void setUpsoNm(String upsoName) {
-        this.upsoName = upsoName;
+    public String getUpsoName() { return upsoName; }
+
+    public void setUpsoName(String upsoName) { this.upsoName = upsoName; }
+
+    public void setupsoNm(String upsoNm) {
+        this.upsoNm = upsoNm;
     }
 
     public String getSntUptaeNm() {
@@ -140,6 +154,18 @@ public class QualityRestaurantModel {
         this.asgnYear = asgnYear;
     }
 
+    public String getMainfood() { return mainfood; }
+
+    public void setMainfood(String mainfood) { this.mainfood = mainfood; }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "ResModel{" +
@@ -148,13 +174,16 @@ public class QualityRestaurantModel {
                 ", upsoSno='" + upsoSno + '\'' +
                 ", cggCode='" + cggCode + '\'' +
                 ", sntCobNm='" + sntCobNm + '\'' +
-                ", upsoNm='" + upsoName + '\'' +
+                ", upsoNm='" + upsoNm + '\'' +
+                ", upsoName='" + upsoName + '\'' +
                 ", sntUptaeNm='" + sntUptaeNm + '\'' +
                 ", siteAddrRd='" + siteAddress + '\'' +
                 ", bdngJisgFlrNum='" + bdngJisgFlrNum + '\'' +
                 ", bdngUnderFlrNum='" + bdngUnderFlrNum + '\'' +
                 ", geEnYn='" + geEnYn + '\'' +
                 ", asgnYear='" + asgnYear + '\'' +
+                ", mainfood='" + mainfood + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

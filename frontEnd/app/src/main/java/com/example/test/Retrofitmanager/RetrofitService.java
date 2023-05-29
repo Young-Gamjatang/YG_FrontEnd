@@ -16,6 +16,20 @@ public interface  RetrofitService {
     @GET("wrong/cggcode")
     Call<List<QualityRestaurantModel>> getwrongcggcode(@Query("guName") String guName);
 
+
+    @GET("search/wrong")
+    Call<List<QualityRestaurantModel>> searchwrong(@Query("upsoName") String upsoName);
+
+
+    @GET("search/restaurant")
+    Call<List<QualityRestaurantModel>> searchres(@Query("upsoName") String upsoName);
+
+    @GET("near")
+    Call<List<QualityRestaurantModel>> nearres(@Query("guName")String guname,
+                                               @Query("latitude")double lat,
+                                               @Query("longitude")double lon);
+
+
     @GET("url")
     Call<List<BadHygieneRestaurantModel>> getBadHygieneRestaurantModel(@Query("guName") String guName);
 }
