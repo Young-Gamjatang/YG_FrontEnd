@@ -52,78 +52,69 @@ public class SpotList extends AppCompatActivity {
         guName = i.getStringExtra("area");
         term = i.getStringExtra("term");
 
-        Log.d("aa",guName + "/" + term);
         currentDate = new Date();
         format = new SimpleDateFormat("yyyymmdd");
         intCurrentDate = Integer.parseInt(format.format(currentDate));
         admDipoYmd = splitYmd(format.format(currentDate));
 
-        recyclerView = findViewById(R.id.spotRecyclerView);
-        adapter = new SpotListAdapter();
-        linearLayoutManager = new LinearLayoutManager(this);
         dbHelper = new DBHelper(SpotList.this, 1);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
 
         call = RetrofitInstance.getApiService().getBadHygieneRestaurantModel(guName);
         call.enqueue(new Callback<List<BadHygieneRestaurantModel>>() {
             @Override
             public void onResponse(Call<List<BadHygieneRestaurantModel>> call, Response<List<BadHygieneRestaurantModel>> response) {
                 result = response.body();
+                recyclerView = findViewById(R.id.spotRecyclerView);
+                linearLayoutManager = new LinearLayoutManager(SpotList.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
                 for(int i = 0; i < result.size(); i++){
 
                     switch(term){
                         case "1m":
                             if(admDipoYmd[1] == "01"){
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 8900)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }else{
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 100)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }
                             break;
                         case "3m":
                             if(admDipoYmd[1] == "03"){
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 9100)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }else{
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 300)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }
                             break;
                         case "6m":
                             if(admDipoYmd[1] == "06"){
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 9400)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }else{
                                 if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 600)){
-                                    adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                            result.get(i).getSiteAddrRd() + ","+
-                                            result.get(i).getDispoCtnDt());
+                                    adapter = new SpotListAdapter(result);
+                                    recyclerView.setAdapter(adapter);
                                 }
                             }
                             break;
                         case "1y":
                             if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 1000)){
-                                adapter.addItem(result.get(i).getUpsoNm() + ","+
-                                        result.get(i).getSiteAddrRd() + ","+
-                                        result.get(i).getDispoCtnDt());
+                                adapter = new SpotListAdapter(result);
+                                recyclerView.setAdapter(adapter);
                             }
                             break;
                     }
