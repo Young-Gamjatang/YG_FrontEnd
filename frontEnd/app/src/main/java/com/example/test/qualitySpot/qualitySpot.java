@@ -38,23 +38,20 @@ public class qualitySpot extends AppCompatActivity {
 
         Intent i = getIntent();
         guName = i.getStringExtra("area");
-        recyclerView = findViewById(R.id.dibRecyclerview);
-        adapter = new qualityAdapter();
         linearLayoutManager = new LinearLayoutManager(this);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+
 
         call = RetrofitInstance.getApiService().getCggcode(guName);
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
             public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
                 result = response.body();
-                for (int i = 0; i < result.size(); i++) {
-                    adapter.addItem(result.get(i).getUpsoNm() + "," +
-                            result.get(i).getSiteAddrRd() + "," +
-                            result.get(i).getGeEnYn());
-                }
+                recyclerView = findViewById(R.id.dibRecyclerview);
+                linearLayoutManager = new LinearLayoutManager(qualitySpot.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                adapter = new qualityAdapter(result);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
