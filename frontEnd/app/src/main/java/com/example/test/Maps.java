@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.test.Retrofitmanager.BadHygieneRestaurantModel;
 import com.example.test.Retrofitmanager.QualityRestaurantModel;
 import com.example.test.Retrofitmanager.RetrofitInstance;
 import com.naver.maps.geometry.LatLng;
@@ -67,7 +68,9 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public static Marker[] badmarkers;
     public static String lastlocation;
     Call<List<QualityRestaurantModel>> call;
+    Call<List<BadHygieneRestaurantModel>> badcall;
     List<QualityRestaurantModel> result =new ArrayList<>();
+    List<BadHygieneRestaurantModel> badresult = new ArrayList<>();
     public static String inputText;
 
 
@@ -202,29 +205,29 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         }
         lastlocation = citylist.get(0).getSubLocality();
         Log.d("yeye",""+citylist.get(0).getSubLocality());
-        call = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
-        call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+        badcall = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
+        badcall.enqueue(new Callback<List<BadHygieneRestaurantModel>>() {
             @Override
-            public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
-                result = response.body();
-                for(int i = 0 ; i < result.size(); i++)
+            public void onResponse(Call<List<BadHygieneRestaurantModel>> call, Response<List<BadHygieneRestaurantModel>> response) {
+                badresult = response.body();
+                for(int i = 0 ; i < badresult.size(); i++)
                 {
                     Marker marker = new Marker();
-                    marker.setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                    marker.setPosition(new LatLng(badresult.get(i).getLatitude(), badresult.get(i).getLongitude()));
                     marker.setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
                     marker.setWidth(45);
                     marker.setHeight(66);
                     marker.setTag("warning");
-                    marker.setCaptionText(result.get(i).getUpsoNm());
                     marker.setCaptionTextSize(0);
                     marker.setOnClickListener(Maps.this);
                     marker.setMap(naverMap);
                 }
 
+
             }
 
             @Override
-            public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+            public void onFailure(Call<List<BadHygieneRestaurantModel>> call, Throwable t) {
 
             }
         });
@@ -235,21 +238,21 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
             public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
 
                 result = response.body();
+
                 for(int i = 0 ; i < result.size(); i++)
                 {
-
-                    goodmarkers = new Marker[result.size()];
-                    goodmarkers[i] = new Marker();
-                    goodmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                    goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
-                    goodmarkers[i].setWidth(45);
-                    goodmarkers[i].setHeight(66);
-                    goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
-                    goodmarkers[i].setCaptionText(result.get(i).getUpsoName());
-                    goodmarkers[i].setCaptionTextSize(0);
-                    goodmarkers[i].setOnClickListener(Maps.this);
-                    goodmarkers[i].setMap(naverMap);
+                    Marker marker = new Marker();
+                    marker.setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                    marker.setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                    marker.setWidth(45);
+                    marker.setHeight(66);
+                    marker.setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
+                    marker.setCaptionText(result.get(i).getUpsoName());
+                    marker.setCaptionTextSize(0);
+                    marker.setOnClickListener(Maps.this);
+                    marker.setMap(naverMap);
                 }
+
 
             }
 
@@ -303,30 +306,31 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                 if(!Objects.equals(lastlocation, citylist.get(0).getSubLocality()))
                 {
                     lastlocation = citylist.get(0).getSubLocality();
-                    call = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
-                    call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+                    badcall = RetrofitInstance.getApiService().getwrongcggcode(citylist.get(0).getSubLocality());
+                    badcall.enqueue(new Callback<List<BadHygieneRestaurantModel>>() {
                         @Override
-                        public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
-                            result = response.body();
-                            if(result != null) {
-                                for (int i = 0; i < result.size(); i++) {
-                                    badmarkers = new Marker[result.size()];
-                                    badmarkers[i] = new Marker();
-                                    badmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                                    badmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
-                                    badmarkers[i].setWidth(45);
-                                    badmarkers[i].setHeight(66);
-                                    badmarkers[i].setCaptionText(result.get(i).getUpsoNm());
-                                    badmarkers[i].setCaptionTextSize(0);
-                                    badmarkers[i].setTag("warning");
-                                    badmarkers[i].setOnClickListener(Maps.this);
-                                    badmarkers[i].setMap(naverMap);
+                        public void onResponse(Call<List<BadHygieneRestaurantModel>> call, Response<List<BadHygieneRestaurantModel>> response) {
+                            badresult = response.body();
+
+                            if(badresult != null) {
+                                for (int i = 0; i < badresult.size(); i++) {
+                                    Marker marker = new Marker();
+
+                                    marker.setPosition(new LatLng(badresult.get(i).getLatitude(), badresult.get(i).getLongitude()));
+                                    marker.setIcon(OverlayImage.fromResource(R.drawable.mark_warning));
+                                    marker.setWidth(45);
+                                    marker.setHeight(66);
+                                    marker.setCaptionText(badresult.get(i).getUpsoNm());
+                                    marker.setCaptionTextSize(0);
+                                    marker.setTag("warning");
+                                    marker.setOnClickListener(Maps.this);
+                                    marker.setMap(naverMap);
                                 }
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+                        public void onFailure(Call<List<BadHygieneRestaurantModel>> call, Throwable t) {
 
                         }
                     });
@@ -335,20 +339,22 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                                      @Override
                                      public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
                                          result = response.body();
+
                                          if(result != null) {
                                              for (int i = status[0]; i < status[0] + result.size(); i++) {
-                                                 goodmarkers = new Marker[result.size()];
-                                                 goodmarkers[i] = new Marker();
-                                                 goodmarkers[i].setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
-                                                 goodmarkers[i].setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
-                                                 goodmarkers[i].setWidth(45);
-                                                 goodmarkers[i].setHeight(66);
-                                                 goodmarkers[i].setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
-                                                 goodmarkers[i].setCaptionTextSize(0);
-                                                 goodmarkers[i].setOnClickListener(Maps.this);
-                                                 goodmarkers[i].setMap(naverMap);
+                                                 Marker marker = new Marker();
+                                                 marker.setPosition(new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude()));
+                                                 marker.setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                                                 marker.setWidth(45);
+                                                 marker.setHeight(66);
+                                                 marker.setTag(result.get(i).getUpsoName()+"/"+result.get(i).getMainfood()+"/"+result.get(i).getSiteAddrRd());
+                                                 marker.setCaptionText(result.get(i).getUpsoName());
+                                                 marker.setCaptionTextSize(0);
+                                                 marker.setOnClickListener(Maps.this);
+                                                 marker.setMap(naverMap);
                                              }
                                          }
+
 
                                      }
 
@@ -405,11 +411,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
                                 new LatLng(result.get(0).getLatitude(),result.get(0).getLongitude()),15
                         );
                         naverMap.setCameraPosition(startposition);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+
 
                         Marker marker;
                         marker = new Marker();
@@ -445,22 +447,31 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public boolean onClick(@NonNull Overlay overlay) {
         if (overlay instanceof Marker)
         {
-
             ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
             ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
+            TextView markimg = findViewById(R.id.markimg);
+            TextView text_title = findViewById(R.id.text_title);
+            TextView text_address = findViewById(R.id.text_address);
+            TextView text_category = findViewById(R.id.text_category);
+            TextView text_mainfood = findViewById(R.id.text_mainfood);
+            TextView text_punish = findViewById(R.id.punish_why);
+
+
+            marker_detail.setVisibility(View.GONE);
+            upso_detail.setVisibility(View.VISIBLE);
+
+
+
+
             if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_mobum)))
             {
-
-                TextView text_title = findViewById(R.id.text_title);
-                TextView text_address = findViewById(R.id.text_address);
-                TextView text_category = findViewById(R.id.text_category);
-                TextView text_mainfood = findViewById(R.id.text_mainfood);
-
-                marker_detail.setVisibility(View.GONE);
-                upso_detail.setVisibility(View.VISIBLE);
                 text_title.setText("");
                 text_mainfood.setText("");
                 text_address.setText("");
+                text_punish.setText("");
+
+                markimg.setBackground(getDrawable(R.drawable.mark_mobum));
+
 
                 String temp = overlay.getTag().toString();
                 String[] detail = temp.split("/");
@@ -487,6 +498,29 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
             }
             if(((Marker) overlay).getIcon().equals(OverlayImage.fromResource(R.drawable.mark_warning)))
             {
+
+                text_title.setText("");
+                text_mainfood.setText("");
+                text_address.setText("");
+                text_punish.setText("");
+
+                markimg.setBackground(getDrawable(R.drawable.mark_warning));
+                String temp = overlay.getTag().toString();
+                String[] detail = temp.split("/");
+                if(!detail[0].equals("null"))
+                {
+                    text_title.setText(detail[0]);
+                }
+                if(!detail[1].equals("null"))
+                {
+                    text_mainfood.setText(detail[1]);
+                }
+                if(!detail[2].equals("null"))
+                {
+                    text_address.setText(detail[2]);
+                }
+
+                Log.d("aaaaaaa",""+detail[0]+"{{"+detail[1]+"{{"+detail[2]);
 
                 Log.d("bbbbbb",((Marker) overlay).getCaptionText());
             }

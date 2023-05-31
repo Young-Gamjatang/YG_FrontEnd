@@ -81,6 +81,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".qualitySpot.qualitySpot"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SearchSelect"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|adjustPan">

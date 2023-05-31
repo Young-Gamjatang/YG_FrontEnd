@@ -78,11 +78,12 @@
                             android:layout_height="wrap_content"
                             android:text="메인 음식"
                             android:textColor="#80000000"
-                            app:layout_constraintHorizontal_bias="0.1"
                             app:layout_constraintBottom_toBottomOf="@+id/text_title"
                             app:layout_constraintEnd_toStartOf="@+id/detail_btn"
+                            app:layout_constraintHorizontal_bias="0.1"
                             app:layout_constraintStart_toEndOf="@+id/text_title"
                             app:layout_constraintTop_toTopOf="@+id/text_title" />
+
                         <TextView
                             android:id="@+id/text_address"
                             android:layout_width="wrap_content"
@@ -106,6 +107,15 @@
                             app:layout_constraintStart_toStartOf="@+id/text_address"
                             app:layout_constraintTop_toBottomOf="@+id/text_address"
                             app:layout_constraintVertical_bias="0.1" />
+
+                        <TextView
+                            android:id="@+id/punish_why"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="#80000000"
+                            app:layout_constraintStart_toStartOf="@+id/text_category"
+                            app:layout_constraintTop_toBottomOf="@+id/text_category"></TextView>
 
                         <TextView
                             android:id="@+id/detail_btn"

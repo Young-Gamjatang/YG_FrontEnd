@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test.Spot.SpotList;
+import com.example.test.qualitySpot.qualitySpot;
 
 public class Region extends AppCompatActivity {
 
@@ -49,7 +50,7 @@ public class Region extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(selecteddistrict==null) Toast.makeText(Region.this,"체크박스를 체크해주세요!",Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(Region.this, SpotList.class);
+                Intent i = new Intent(Region.this, qualitySpot.class);
                 i.putExtra("area",selecteddistrict);
                 startActivity(i);
             }

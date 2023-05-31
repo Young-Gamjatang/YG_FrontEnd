@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.test.InnerDataBase.DBHelper;
 import com.example.test.R;
@@ -50,6 +51,8 @@ public class SpotList extends AppCompatActivity {
         Intent i = getIntent();
         guName = i.getStringExtra("area");
         term = i.getStringExtra("term");
+
+        Log.d("aa",guName + "/" + term);
         currentDate = new Date();
         format = new SimpleDateFormat("yyyymmdd");
         intCurrentDate = Integer.parseInt(format.format(currentDate));
