@@ -23,16 +23,7 @@ public class DibsAdapter extends RecyclerView.Adapter<DibsAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.dibs_item,parent,false);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         return new MyViewHolder(view);
-
-
     }
 
     @Override
@@ -45,7 +36,7 @@ public class DibsAdapter extends RecyclerView.Adapter<DibsAdapter.MyViewHolder> 
         return items.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView upsoName;
         private TextView siteAddress;
@@ -57,17 +48,6 @@ public class DibsAdapter extends RecyclerView.Adapter<DibsAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        items.set(pos,"hello"+pos);
-
-                        notifyDataSetChanged();
-                    }
-                }
-            });
             upsoName = itemView.findViewById(R.id.upsoName);
             siteAddress = itemView.findViewById(R.id.siteAddress);
             geEnYn = itemView.findViewById(R.id.geEnYn);
