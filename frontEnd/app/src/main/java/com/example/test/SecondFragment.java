@@ -52,7 +52,9 @@ public class SecondFragment extends Fragment {
                 String result = dbCheckbox.getResult();
                 if (!result.isEmpty()) {
                     // 데이터베이스에 데이터가 있을 때 처리
+                    dbCheckbox.delete();
                     Log.d("vvvvv", "데이터베이스에 데이터가 있습니다.");
+
                     // 여기에 처리 내용을 작성하세요.
                 } else {
                     // 데이터베이스에 데이터가 없을 때 처리
