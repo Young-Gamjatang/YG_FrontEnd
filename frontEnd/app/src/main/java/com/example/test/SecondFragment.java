@@ -33,6 +33,7 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_second, container, false);
+        dbCheckbox = DBCheckbox.getInstance(requireContext());
 
         checkboxes = new CheckBox[25];
 
@@ -53,11 +54,16 @@ public class SecondFragment extends Fragment {
                 String result = dbCheckbox.getResult();
                 if (!result.isEmpty()) {
                     // 데이터베이스에 데이터가 있을 때 처리
+                    String[] res = new String[2];
+
                     Intent i = new Intent(requireContext(),SpotList.class);
-                    i.putExtra("area",dbCheckbox.getResult());
-                    Log.d("log",dbCheckbox.getResult());
+
+                    res = dbCheckbox.getResult().split("/");
+                    i.putExtra("area",res[0]);
+                    i.putExtra("term",res[1]);
                     dbCheckbox.delete();
                     startActivity(i);
+
 
                     // 여기에 처리 내용을 작성하세요.
                 } else {
@@ -69,8 +75,6 @@ public class SecondFragment extends Fragment {
 
             }
         });
-
-        dbCheckbox = new DBCheckbox(getActivity(), 1);
 
         return view;
     }
@@ -88,7 +92,8 @@ public class SecondFragment extends Fragment {
                 disableOtherCheckboxes(buttonView);
 
                 // 데이터베이스에 구 이름 저장
-                dbCheckbox.areainsert(selectedDistrict);
+                dbCheckbox.insertarea(selectedDistrict);
+                Log.d("xx",dbCheckbox.getResult());
             } else {
                 // 체크박스가 선택 해제되었을 때의 동작
                 String selectedDistrict = buttonView.getTag().toString();
