@@ -38,7 +38,6 @@ public class SpotList extends AppCompatActivity {
     private List<BadHygieneRestaurantModel> result =new ArrayList<>();
     private String guName;
     private String term;
-    private ArrayList<String> body = new ArrayList<>();
     private Date currentDate;
     private SimpleDateFormat format;
     private int intCurrentDate;
