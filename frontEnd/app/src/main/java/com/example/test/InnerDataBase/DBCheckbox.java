@@ -1,6 +1,5 @@
 package com.example.test.InnerDataBase;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,14 +10,23 @@ import androidx.annotation.Nullable;
 public class DBCheckbox extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Checkbox.db";
+    private static final int DATABASE_VERSION = 1;
+    private static DBCheckbox instance; // 인스턴스 변수 추가
 
-    public DBCheckbox(Context context, int version) {
-        super(context, DATABASE_NAME, null, version);
+    private DBCheckbox(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static synchronized DBCheckbox getInstance(Context context) {
+        if (instance == null) {
+            instance = new DBCheckbox(context.getApplicationContext());
+        }
+        return instance;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE Checkbox (area TEXT, term INTEGER)");
+        sqLiteDatabase.execSQL("CREATE TABLE Checkbox (area TEXT, term TEXT)");
     }
 
     @Override
@@ -27,23 +35,30 @@ public class DBCheckbox extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    // Checkbox 테이블에 area 데이터 입력
-    public void areainsert(String area) {
+    public void insertarea(String area) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO Checkbox (area) VALUES('" + area + "')");
+        Cursor cursor = db.rawQuery("SELECT * FROM Checkbox", null);
+        if (cursor.getCount() > 0) {
+            db.execSQL("UPDATE Checkbox SET area = '" + area + "'");
+        } else {
+            db.execSQL("INSERT INTO Checkbox (area) VALUES('" + area + "')");
+        }
+        cursor.close();
         db.close();
     }
 
-    // Checkbox 테이블에 term 데이터 입력
-    public void terminsert(boolean term) {
-        int termValue = term ? 1 : 0;
-
+    public void insertterm(String term) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO Checkbox (term) VALUES(" + termValue + ")");
+        Cursor cursor = db.rawQuery("SELECT * FROM Checkbox", null);
+        if (cursor.getCount() > 0) {
+            db.execSQL("UPDATE Checkbox SET term = '" + term + "'");
+        } else {
+            db.execSQL("INSERT INTO Checkbox (term) VALUES('" + term + "')");
+        }
+        cursor.close();
         db.close();
     }
 
-    // Checkbox 테이블에서 데이터 삭제
     public void delete() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM Checkbox");
@@ -57,9 +72,9 @@ public class DBCheckbox extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM Checkbox", null);
         while (cursor.moveToNext()) {
             String area = cursor.getString(0);
-            boolean term = cursor.getInt(1) == 1;
+            String term = cursor.getString(1);
 
-            result += "area: " + area + ", term: " + term + "\n";
+            result += area +"/"+ term + "\n";
         }
 
         cursor.close();
@@ -68,20 +83,9 @@ public class DBCheckbox extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean checkDataExists() {
-        SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM Checkbox";
-        Cursor cursor = db.rawQuery(query, null);
-        boolean hasData = cursor.getCount() > 0;
-        cursor.close();
-        db.close();
-        return hasData;
-    }
-
     public void updateArea(String newArea) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE Checkbox SET area = '" + newArea + "'");
         db.close();
     }
 }
-
