@@ -21,9 +21,14 @@ import java.util.prefs.BackingStoreException;
 
 public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyViewHolder> {
     List<BadHygieneRestaurantModel> baddata;
+    int currentDate;
+    String term;
+    String[] admDipoYmd = splitYmd(String.valueOf(currentDate));
 
-    public SpotListAdapter(List<BadHygieneRestaurantModel> baddata) {
+    public SpotListAdapter(List<BadHygieneRestaurantModel> baddata, int currentDate,String term) {
         this.baddata = baddata;
+        this.currentDate = currentDate;
+        this.term = term;
     }
 
     @NonNull
@@ -44,6 +49,61 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyView
         holder.upsoName.setText(baddata.get(position).getUpsoNm());
         holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
         holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+
+        switch(term){
+            case "1m":
+                if(admDipoYmd[1] == "01"){
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 8900)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }else{
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 100)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }
+                break;
+            case "3m":
+                if(admDipoYmd[1] == "03"){
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 9100)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }else{
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 300)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }
+                break;
+            case "6m":
+                if(admDipoYmd[1] == "06"){
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 9400)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }else{
+                    if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 600)){
+                        holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                        holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                        holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                    }
+                }
+                break;
+            case "1y":
+                if(Integer.parseInt(baddata.get(position).getAdmDispoYmd()) >= (currentDate -= 1000)){
+                    holder.upsoName.setText(baddata.get(position).getUpsoNm());
+                    holder.siteAddress.setText(baddata.get(position).getSiteAddrRd());
+                    holder.admDispoYmd.setText(baddata.get(position).getAdmDispoYmd());
+                }
+                break;
+        }
     }
 
     @Override
@@ -67,5 +127,15 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyView
             this.admDispoYmd = itemView.findViewById(R.id.geEnYn);
             this.dibs = itemView.findViewById(R.id.dibs);
         }
+    }
+
+    public String[] splitYmd(String ymd){
+        String year = ymd.substring(0,4);
+        String month = ymd.substring(4,6);
+        String day = ymd.substring(6,8);
+
+        String[] admDispoYmd = {year, month, day};
+
+        return admDispoYmd;
     }
 }
