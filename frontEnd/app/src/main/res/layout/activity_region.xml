@@ -89,24 +89,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="10dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전체"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-
-            <CheckBox
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="35dp"
-                android:buttonTint="#FCD46A" />
-        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,6 +110,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_1"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -145,6 +128,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_14"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -173,6 +157,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_2"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -190,6 +175,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_15"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -216,6 +202,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_3"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -233,6 +220,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_16"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -259,6 +247,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_4"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -276,6 +265,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_17"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -302,6 +292,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_5"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -319,6 +310,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_18"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -345,6 +337,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_6"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
@@ -363,6 +356,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_19"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -389,6 +383,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_7"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -406,6 +401,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_20"
                 android:buttonTint="#FCD46A"
                 android:layout_marginRight="15dp"
                 android:layout_width="40dp"
@@ -433,6 +429,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_8"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
@@ -451,6 +448,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_21"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -476,6 +474,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_9"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -493,6 +492,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_22"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -516,6 +516,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_10"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
                 android:layout_width="40dp"
@@ -533,6 +534,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_23"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -557,6 +559,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_11"
                 android:layout_marginStart="3dp"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
@@ -576,6 +579,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_24"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -603,6 +607,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_12"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
@@ -621,6 +626,7 @@
                 android:textColor="@color/black"
                 android:textSize="17sp" />
             <CheckBox
+                android:id="@+id/region_checkbox_25"
                 android:buttonTint="#FCD46A"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -648,6 +654,7 @@
                 android:textSize="17sp" />
 
             <CheckBox
+                android:id="@+id/region_checkbox_13"
                 android:buttonTint="#FCD46A"
                 android:layout_marginLeft="19dp"
 
@@ -675,6 +682,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         <ImageView
+            android:id="@+id/selbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/check_done_icon"/>
