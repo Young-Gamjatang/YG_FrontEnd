@@ -41,7 +41,7 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyView
 
         private TextView upsoName;
         private TextView siteAddress;
-        private TextView geEnYn;
+        private TextView admDispoYmd;
         private ImageView dibs;
 
 
@@ -50,7 +50,7 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyView
 
             upsoName = itemView.findViewById(R.id.upsoName);
             siteAddress = itemView.findViewById(R.id.siteAddress);
-            geEnYn = itemView.findViewById(R.id.geEnYn);
+            admDispoYmd = itemView.findViewById(R.id.geEnYn);
             dibs = itemView.findViewById(R.id.dibs);
         }
 
@@ -63,7 +63,7 @@ public class SpotListAdapter extends RecyclerView.Adapter<SpotListAdapter.MyView
 
             upsoName.setText(name);
             siteAddress.setText(address);
-            geEnYn.setText(quality);
+            admDispoYmd.setText(quality);
         }
     }
 }

@@ -30,6 +30,6 @@ public interface  RetrofitService {
                                                @Query("longitude")double lon);
 
 
-    @GET("url")
+    @GET("wrong/cggcode")
     Call<List<BadHygieneRestaurantModel>> getBadHygieneRestaurantModel(@Query("guName") String guName);
 }
