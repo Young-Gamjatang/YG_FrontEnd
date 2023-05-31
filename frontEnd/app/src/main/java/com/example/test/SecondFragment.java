@@ -1,4 +1,5 @@
 package com.example.test;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,8 +53,11 @@ public class SecondFragment extends Fragment {
                 String result = dbCheckbox.getResult();
                 if (!result.isEmpty()) {
                     // 데이터베이스에 데이터가 있을 때 처리
+                    Intent i = new Intent(requireContext(),SpotList.class);
+                    i.putExtra("area",dbCheckbox.getResult());
+                    Log.d("log",dbCheckbox.getResult());
                     dbCheckbox.delete();
-                    Log.d("vvvvv", "데이터베이스에 데이터가 있습니다.");
+                    startActivity(i);
 
                     // 여기에 처리 내용을 작성하세요.
                 } else {
