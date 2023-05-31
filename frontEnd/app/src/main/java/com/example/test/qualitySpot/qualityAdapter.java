@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class qualityAdapter extends RecyclerView.Adapter<qualityAdapter.MyViewHolder> {
-    private ArrayList<String> items = new ArrayList<>();
-
     List<QualityRestaurantModel> qualitydata;
 
     public qualityAdapter(List<QualityRestaurantModel> qualitydata) {
