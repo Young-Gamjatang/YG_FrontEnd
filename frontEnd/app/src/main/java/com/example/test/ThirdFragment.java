@@ -30,8 +30,7 @@ public class ThirdFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_third, container, false);
 
-        dbCheckbox = new DBCheckbox(getActivity(), 1);
-
+        dbCheckbox = DBCheckbox.getInstance(requireContext());
 
         checkboxes = new CheckBox[4];
         for (int i = 0; i < 4; i++) {
@@ -51,10 +50,13 @@ public class ThirdFragment extends Fragment {
                 String result = dbCheckbox.getResult();
                 if (!result.isEmpty()) {
                     // 데이터베이스에 데이터가 있을 때 처리
+                    String[] res = new String[2];
 
                     Intent i = new Intent(requireContext(),SpotList.class);
-                    i.putExtra("area",dbCheckbox.getResult());
-                    Log.d("log",dbCheckbox.getResult());
+
+                    res = dbCheckbox.getResult().split("/");
+                    i.putExtra("area",res[0]);
+                    i.putExtra("term",res[1]);
                     dbCheckbox.delete();
                     startActivity(i);
 
@@ -68,7 +70,6 @@ public class ThirdFragment extends Fragment {
 
             }
         });
-
 
         return view;
     }
@@ -86,7 +87,8 @@ public class ThirdFragment extends Fragment {
                 disableOtherCheckboxes(buttonView);
 
                 // 데이터베이스에 구 이름 저장
-                dbCheckbox.areainsert(selectedterm);
+                dbCheckbox.insertterm(selectedterm);
+                Log.d("log",dbCheckbox.getResult());
             } else {
                 // 체크박스가 선택 해제되었을 때의 동작
                 String selectedterm = buttonView.getTag().toString();
