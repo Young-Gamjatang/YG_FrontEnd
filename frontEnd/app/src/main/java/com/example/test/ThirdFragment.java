@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.test.InnerDataBase.DBCheckbox;
+import com.example.test.Spot.SpotList;
 
 public class ThirdFragment extends Fragment {
     private CheckBox[] checkboxes;
@@ -52,7 +53,7 @@ public class ThirdFragment extends Fragment {
                 if (!result.isEmpty()) {
                     // 데이터베이스에 데이터가 있을 때 처리
 
-                    Intent i = new Intent(requireContext(),SpotList.class);
+                    Intent i = new Intent(requireContext(), SpotList.class);
                     i.putExtra("area",dbCheckbox.getResult());
                     Log.d("log",dbCheckbox.getResult());
                     dbCheckbox.delete();
