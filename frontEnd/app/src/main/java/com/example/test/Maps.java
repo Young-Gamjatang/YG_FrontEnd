@@ -18,7 +18,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +75,22 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         dymark = new Marker();
+        EditText editText = findViewById(R.id.edittext_serach);
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String inputText = editText.getText().toString();
+                    // 입력 완료된 문자열을 이용하여 원하는 작업 수행
+                    //call = RetrofitInstance.getApiService().searchres();
+
+                    return true; // 이벤트 처리 완료
+                }
+                return false; // 이벤트 처리가 필요하지 않음
+            }
+        });
+
 
         //cur_lat과 cur_lon에 각각 위도 경도 값을 할당해줌
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
