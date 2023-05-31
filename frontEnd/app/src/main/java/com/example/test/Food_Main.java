@@ -111,15 +111,17 @@ public class Food_Main extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(this);
         List<Address> citylist = null;
         try {
-            citylist = geocoder.getFromLocation(cur_lat, cur_lon, 1);
+            citylist = geocoder.getFromLocation(cur_lat, cur_lon, 10);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String mylocation = citylist.get(0).getSubLocality();
+        String mylocation = citylist.get(1).getSubLocality();
+        Log.d("zz",mylocation + cur_lat+"/"+cur_lon);
 
 
         call = RetrofitInstance.getApiService().nearres(mylocation, cur_lat, cur_lon);
+
         call.enqueue(new Callback<List<QualityRestaurantModel>>() {
             @Override
             public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
@@ -193,6 +195,8 @@ public class Food_Main extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
                 // 실패 시 처리
+
+                Log.d("mmmm",t.getMessage());
             }
         });
 
