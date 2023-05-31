@@ -10,10 +10,10 @@ import retrofit2.http.Query;
 
 public interface  RetrofitService {
 
-    @GET("cggcode")
+    @GET("query/cggcode")
     Call<List<QualityRestaurantModel>> getCggcode(@Query("guName") String guName);
 
-    @GET("wrong/cggcode")
+    @GET("query/wrong/cggcode")
     Call<List<QualityRestaurantModel>> getwrongcggcode(@Query("guName") String guName);
 
 
@@ -24,7 +24,7 @@ public interface  RetrofitService {
     @GET("search/restaurant")
     Call<List<QualityRestaurantModel>> searchres(@Query("upsoName") String upsoName);
 
-    @GET("near")
+    @GET("query/near")
     Call<List<QualityRestaurantModel>> nearres(@Query("guName")String guname,
                                                @Query("latitude")double lat,
                                                @Query("longitude")double lon);

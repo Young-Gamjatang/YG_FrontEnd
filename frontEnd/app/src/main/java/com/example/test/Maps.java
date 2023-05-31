@@ -16,6 +16,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -66,6 +68,7 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
     public static String lastlocation;
     Call<List<QualityRestaurantModel>> call;
     List<QualityRestaurantModel> result =new ArrayList<>();
+    public static String inputText;
 
 
 
@@ -77,17 +80,22 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         dymark = new Marker();
         EditText editText = findViewById(R.id.edittext_serach);
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String inputText = editText.getText().toString();
-                    // 입력 완료된 문자열을 이용하여 원하는 작업 수행
-                    //call = RetrofitInstance.getApiService().searchres();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 텍스트 변경 이전에 수행할 작업
+            }
 
-                    return true; // 이벤트 처리 완료
-                }
-                return false; // 이벤트 처리가 필요하지 않음
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 텍스트 변경 중에 수행할 작업
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // 텍스트 변경 이후에 수행할 작업
+                inputText = editText.getText().toString();
+
             }
         });
 
@@ -146,17 +154,23 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
 //        );
 //        naverMap.setCameraPosition(cameraPosition);
 //
+
+
+
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
 
 
+        TextView searchbtn = findViewById(R.id.searchbtn);
+
+
         ConstraintLayout marker_detail = findViewById(R.id.marker_deatil);
         ConstraintLayout upso_detail = findViewById(R.id.upso_deatil);
         //startposition에 cur_lat , cur_lon
         CameraPosition startposition = new CameraPosition(
-                new LatLng(37.498095,127.027610),15
+                new LatLng(cur_lat,cur_lon),15
         );
         CameraPosition cameraPosition = naverMap.getCameraPosition();
         final int[] status = {0};
@@ -376,6 +390,47 @@ public class Maps extends AppCompatActivity implements OnMapReadyCallback , Over
         });
 
         naverMap.setContentPadding(0,DPtoPX(Maps.this,130),0,DPtoPX(Maps.this,200));
+        // 입력 완료된 문자열을 이용하여 원하는 작업 수행
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("tt",inputText);
+                call = RetrofitInstance.getApiService().searchres(inputText);
+                call.enqueue(new Callback<List<QualityRestaurantModel>>() {
+                    @Override
+                    public void onResponse(Call<List<QualityRestaurantModel>> call, Response<List<QualityRestaurantModel>> response) {
+                        result = response.body();
+                        Log.d("오예", result.get(0).toString());
+                        CameraPosition startposition = new CameraPosition(
+                                new LatLng(result.get(0).getLatitude(),result.get(0).getLongitude()),15
+                        );
+                        naverMap.setCameraPosition(startposition);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        Marker marker;
+                        marker = new Marker();
+                        marker.setPosition(new LatLng(result.get(0).getLatitude(), result.get(0).getLongitude()));
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.mark_mobum));
+                        marker.setWidth(45);
+                        marker.setHeight(66);
+                        marker.setTag(result.get(0).getUpsoName()+"/"+result.get(0).getMainfood()+"/"+result.get(0).getSiteAddrRd());
+                        marker.setCaptionText(result.get(0).getUpsoName());
+                        marker.setCaptionTextSize(0);
+                        marker.setOnClickListener(Maps.this);
+                        marker.setMap(naverMap);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<QualityRestaurantModel>> call, Throwable t) {
+                        // 요청 실패 시 수행할 작업
+                    }
+                });
+            }
+        });
 
 
 
