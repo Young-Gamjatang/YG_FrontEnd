@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.test.InnerDataBase.DBCheckbox;
+import com.example.test.Spot.SpotList;
 
 public class SecondFragment extends Fragment {
     private CheckBox[] checkboxes;
@@ -56,7 +57,7 @@ public class SecondFragment extends Fragment {
                     // 데이터베이스에 데이터가 있을 때 처리
                     String[] res = new String[2];
 
-                    Intent i = new Intent(requireContext(),SpotList.class);
+                    Intent i = new Intent(requireContext(), SpotList.class);
 
                     res = dbCheckbox.getResult().split("/");
                     i.putExtra("area",res[0]);
