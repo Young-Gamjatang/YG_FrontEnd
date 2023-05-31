@@ -42,9 +42,8 @@ public class SpotList extends AppCompatActivity {
     private Date currentDate;
     private SimpleDateFormat format;
     private int intCurrentDate;
-    private String[] admDipoYmd;
 
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spot_list);
 
@@ -55,7 +54,6 @@ public class SpotList extends AppCompatActivity {
         currentDate = new Date();
         format = new SimpleDateFormat("yyyymmdd");
         intCurrentDate = Integer.parseInt(format.format(currentDate));
-        admDipoYmd = splitYmd(format.format(currentDate));
 
         dbHelper = new DBHelper(SpotList.this, 1);
 
@@ -68,57 +66,8 @@ public class SpotList extends AppCompatActivity {
                 recyclerView = findViewById(R.id.spotRecyclerView);
                 linearLayoutManager = new LinearLayoutManager(SpotList.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
-
-                for(int i = 0; i < result.size(); i++){
-
-                    switch(term){
-                        case "1m":
-                            if(admDipoYmd[1] == "01"){
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 8900)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }else{
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 100)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }
-                            break;
-                        case "3m":
-                            if(admDipoYmd[1] == "03"){
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 9100)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }else{
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 300)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }
-                            break;
-                        case "6m":
-                            if(admDipoYmd[1] == "06"){
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 9400)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }else{
-                                if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 600)){
-                                    adapter = new SpotListAdapter(result);
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            }
-                            break;
-                        case "1y":
-                            if(Integer.parseInt(result.get(i).getAdmDispoYmd()) >= (intCurrentDate -= 1000)){
-                                adapter = new SpotListAdapter(result);
-                                recyclerView.setAdapter(adapter);
-                            }
-                            break;
-                    }
-                }
+                adapter = new SpotListAdapter(result, intCurrentDate, term);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -127,15 +76,5 @@ public class SpotList extends AppCompatActivity {
             }
         });
 
-    }
-
-    public String[] splitYmd(String ymd){
-        String year = ymd.substring(0,4);
-        String month = ymd.substring(4,6);
-        String day = ymd.substring(6,8);
-
-        String[] admDispoYmd = {year, month, day};
-
-        return admDispoYmd;
     }
 }
