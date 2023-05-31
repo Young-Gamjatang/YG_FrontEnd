@@ -51,7 +51,7 @@
                     tools:layout_editor_absoluteY="-16dp">
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/markimg"
                             android:layout_width="16dp"
                             android:layout_height="23dp"
                             android:background="@drawable/mark_mobum"
@@ -68,9 +68,9 @@
                             android:layout_height="wrap_content"
                             android:text="서북면옥"
                             android:textColor="#80000000"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                            app:layout_constraintStart_toEndOf="@+id/textView6"
-                            app:layout_constraintTop_toTopOf="@+id/textView6" />
+                            app:layout_constraintBottom_toBottomOf="@+id/markimg"
+                            app:layout_constraintStart_toEndOf="@+id/markimg"
+                            app:layout_constraintTop_toTopOf="@+id/markimg" />
 
                         <TextView
                             android:id="@+id/text_mainfood"
@@ -93,7 +93,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.15"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6"
+                            app:layout_constraintTop_toBottomOf="@+id/markimg"
                             app:layout_constraintVertical_bias="0.1" />
 
                         <TextView
@@ -258,13 +258,13 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.218"
-                            app:layout_constraintStart_toEndOf="@+id/textView2"
+                            app:layout_constraintStart_toEndOf="@+id/searchbtn"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:id="@+id/searchbtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:background="@drawable/yellow_search_icon"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
