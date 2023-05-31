@@ -82,7 +82,7 @@ public class Food_Main extends AppCompatActivity {
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Food_Main.this, Order.class);
+                Intent intent = new Intent(Food_Main.this, SearchSelect.class);
                 startActivity(intent);
             }
         });
